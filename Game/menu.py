@@ -37,7 +37,7 @@ def menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        Button(screen, howtoplay_button, 512, 420, 256, 144, howtoplay_button_act, 512,420, call_explain_game)
+        Button(screen, howtoplay_button, 512, 520, 256, 144, howtoplay_button_act, 512, 520, call_explain_game)
 
         pygame.display.update()
         fps.tick(60)
