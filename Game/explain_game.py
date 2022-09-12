@@ -15,10 +15,3 @@ def explain_game(input_screen, screen_color, input_font, font_color):
     input_font(input_screen, "보상은.. 저희가 드리는 보수,", font_color, 0, 560, 60)
     input_font(input_screen, "그리고 뿌듯함을 얻으실겁니다!", font_color, 0, 630, 60)
     menu_music(-1, 1)
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-
-        pygame.display.update()
