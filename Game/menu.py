@@ -1,6 +1,8 @@
 import pygame
+import time
 from load_images import *
 from button_UI import *
+from load_sounds import *
 
 pygame.init()
 
@@ -22,12 +24,12 @@ fps = pygame.time.Clock()
 howtoplay_button = pygame.image.load("image/buttons_UI/howtoplay_button.png")
 howtoplay_button_act = pygame.image.load("image/buttons_UI/howtoplay_button_act.png")
 
-def main_menu():
+def menu():
     pygame.display.set_caption("menu")
     background(screen, 0, 0)
-    headline(screen, "휴식이 없는 나에게", BLACK, 0, 0, 80)
-    headline(screen, "진정한 휴식이 뭔지 알려주는", BLACK, 0, 80, 80)
-    headline(screen, "감동 깊은 게임", BLACK, 0, 160, 80)
+    use_dung_geun_font(screen, "휴식이 없는 나에게", BLACK, 0, 0, 80)
+    use_dung_geun_font(screen, "진정한 휴식이 뭔지 알려주는", BLACK, 0, 80, 80)
+    use_dung_geun_font(screen, "감동 깊은 게임", BLACK, 0, 160, 80)
 
     while True:
         for event in pygame.event.get():
@@ -41,7 +43,8 @@ def main_menu():
 
 def Explain_game():
     screen.fill(BLACK)
-    headline(screen, "꺼져", RED, 0, 0, 670)
+    use_dung_geun_font(screen, "꺼져", RED, 0, 0, 670)
+    menu_music(-1, 1)
 
     while True:
         for event in pygame.event.get():
