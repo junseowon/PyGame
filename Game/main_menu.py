@@ -41,7 +41,7 @@ def main_menu():
 
 def Explain_game():
     screen.fill(BLACK)
-    headline(screen, "나가", RED, 0, 0, 680)
+    headline(screen, "꺼져", RED, 0, 0, 670)
 
     while True:
         for event in pygame.event.get():
@@ -49,5 +49,3 @@ def Explain_game():
                 pygame.quit()
 
         pygame.display.update()
-
-main_menu()
