@@ -3,6 +3,7 @@ import time
 from load_images import *
 from button_UI import *
 from load_sounds import *
+from explain_game import explain_game
 
 pygame.init()
 
@@ -36,27 +37,10 @@ def menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        Button(screen, howtoplay_button, 512, 420, 256, 144, howtoplay_button_act, 512,420, Explain_game)
+        Button(screen, howtoplay_button, 512, 420, 256, 144, howtoplay_button_act, 512,420, call_explain_game)
 
         pygame.display.update()
         fps.tick(60)
 
-def Explain_game():
-    screen.fill(BLACK)
-    use_dung_geun_font(screen, "당신은 도움의 요정 '박진철'씨가 되어", RED, 0, 0, 60)
-    use_dung_geun_font(screen, "동물의 마을로 떠납니다.", RED, 0, 60, 60)
-    use_dung_geun_font(screen, "동물의 마을은 친절하고 다양한", RED, 0, 120, 60)
-    use_dung_geun_font(screen, "동물 친구들이 살아가는 곳입니다.", RED, 0, 180, 60)
-    use_dung_geun_font(screen, "하는 동물들이 꽤 보이는군요!", RED, 0, 240, 60)
-    use_dung_geun_font(screen, "한.. 5마리 정도?", RED, 0, 300, 60)
-    use_dung_geun_font(screen, "어서 그들에게 다가가주세요.", RED, 0, 360, 60)
-    use_dung_geun_font(screen, "보상은.. 저희가 드리는 보수,", RED, 0, 420, 60)
-    use_dung_geun_font(screen, "그리고 뿌듯함을 얻으실겁니다!", RED, 0, 480, 60)
-    menu_music(-1, 1)
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-
-        pygame.display.update()
+def call_explain_game():
+    explain_game(screen, BLACK, use_dung_geun_font, RED)
