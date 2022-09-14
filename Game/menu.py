@@ -22,8 +22,8 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 fps = pygame.time.Clock()
 
-howtoplay_button = pygame.image.load("image/buttons_UI/howtoplay_button.png")
-howtoplay_button_act = pygame.image.load("image/buttons_UI/howtoplay_button_act.png")
+howtoplay_button = pygame.image.load("images/buttons_UI/howtoplay_button.png")
+howtoplay_button_act = pygame.image.load("images/buttons_UI/howtoplay_button_act.png")
 
 def menu():
     pygame.display.set_caption("menu")
