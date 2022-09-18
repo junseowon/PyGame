@@ -3,7 +3,7 @@ import time
 from load_fonts import *
 from button_UI import *
 from load_sounds import *
-from explain_game import *
+from game import *
 
 pygame.init()
 
@@ -53,8 +53,6 @@ def call_explain_game():
         fps.tick(60)
 
 def call_game():
-    game()
+    pass
 
-
-
-play()     
+play()
