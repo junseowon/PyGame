@@ -1,5 +1,6 @@
 from load_sounds import *
 from load_fonts import *
+from player import *
 
 def menu(input_screen, input_image, font_color):
     input_screen.blit(input_image, (0, 0))
@@ -21,6 +22,3 @@ def explain_game(input_screen, screen_color, font_color):
     handwriting_font(input_screen, "보상은.. 저희가 드리는 보수,", font_color, 0, 560, 60)
     handwriting_font(input_screen, "그리고 뿌듯함을 얻으실겁니다!", font_color, 0, 630, 60)
     menu_music(-1, 1)
-
-def game():
-    pygame.quit()

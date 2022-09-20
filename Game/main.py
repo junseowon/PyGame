@@ -1,9 +1,9 @@
 import pygame
-import time
 from load_fonts import *
 from button_UI import *
 from load_sounds import *
 from game import *
+from player import *
 
 pygame.init()
 
@@ -47,12 +47,26 @@ def call_explain_game():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-        Button(screen, howtoplay_button, 950, 520, 256, 144, howtoplay_button_act, 950, 520, call_game)
+        Button(screen, howtoplay_button, 950, 520, 256, 144, howtoplay_button_act, 950, 520, game)
 
         pygame.display.update()
         fps.tick(60)
 
-def call_game():
-    pass
+def game():
+    moving_sprites = pygame.sprite.Group()
+    player = PlayerIdle(0, 0)
+    moving_sprites.add(player)
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        screen.fill((0, 0, 0))
+        player.animate()
+        moving_sprites.draw(screen)
+        moving_sprites.update(0.05)
+        pygame.display.flip()
+        fps.tick(60)
 
 play()
