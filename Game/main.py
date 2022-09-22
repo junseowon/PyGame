@@ -1,3 +1,4 @@
+from enum import Flag
 import pygame
 from load_fonts import *
 from button_UI import *
@@ -56,23 +57,85 @@ def call_explain_game():
         pygame.display.update()
         fps.tick(30)
 
+
+player_posX = 0
+player_posY = 0
+
+is_right = False
+is_left = False
+
+walkCount = 0
+
+def player_move():
+    global player_posX, player_posY, walkCount, is_left, is_right
+
+    screen.fill((0, 0, 0))
+
+    right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_2.png")]
+
+    left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_2.png")]
+
+    idle = pygame.image.load("images/player/Player_Idle_1.png")
+
+    if walkCount > 1:
+        walkCount = 0
+
+    if is_left == True:
+        screen.blit(left_walk[walkCount], (player_posX, player_posY))
+        walkCount += 1
+    elif is_right == True:
+        screen.blit(right_walk[walkCount], (player_posX, player_posY))
+        walkCount += 1
+    else:
+        screen.blit(idle, ( player_posX, player_posY))
+
+
+
 def game():
-    player_move(screen, fps)
-
-    #newline = 0
-
-    #while True:
-    #    for event in pygame.event.get():
-    #        if event.type == pygame.QUIT:
-    #            pygame.quit()
-    #        if event.type == pygame.KEYDOWN:
-    #            if event.key == pygame.K_SPACE:
-    #               newline += 1
-    #                hamzzizzi_quest(screen, BLACK, newline)
-                    
-    #                if newline > 5:
-    #                    game()
-                    
     
+    newline = 0
+    global player_posX, player_posY, walkCount, is_left, is_right
 
+    while True:
+        fps.tick(30)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    newline += 1
+                    hamzzizzi_quest(screen, BLACK, newline)
+                   
+                    if newline > 5:
+                        game()
+
+                if event.key == pygame.K_d:
+                    is_right = True
+                    is_left = False
+                if event.key == pygame.K_a:
+                    is_left = True
+                    is_right = False
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_d:
+                    is_right = False
+                    is_left = False
+                if event.key == pygame.K_a:
+                    is_left = False
+                    is_right = False
+       
+        if is_right == True:
+            player_posX += 10
+
+        elif is_left == True:
+            player_posX -= 10
+
+        else:
+            walkCount = 0
+        
+        
+        player_move()
+        pygame.display.update()
+           
 play()
