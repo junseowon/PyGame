@@ -2,7 +2,7 @@ import pygame
 from load_fonts import *
 
 def hamzzizzi_quest(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/characters/Dialog.png")
+    dialog = pygame.image.load("images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
