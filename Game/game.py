@@ -7,6 +7,7 @@ def menu(input_screen, font_color):
     handwriting_font(input_screen, "휴식이 없는 나에게", font_color, 0, 0, 80)
     handwriting_font(input_screen, "진정한 휴식이 뭔지 알려주는", font_color, 0, 80, 80)
     handwriting_font(input_screen, "감동 깊은 게임", font_color, 0, 160, 80)
+    menu_music(1, 1)
 
 def explain_game(input_screen, screen_color, font_color):
     input_screen.fill(screen_color)
@@ -21,4 +22,4 @@ def explain_game(input_screen, screen_color, font_color):
     handwriting_font(input_screen, "어서 그들에게 다가가주세요.", font_color, 0, 480, 60)
     handwriting_font(input_screen, "보상은.. 저희가 드리는 보수,", font_color, 0, 560, 60)
     handwriting_font(input_screen, "그리고 뿌듯함을 얻으실겁니다!", font_color, 0, 630, 60)
-    menu_music(-1, 1)
+    
