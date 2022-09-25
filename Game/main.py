@@ -61,30 +61,50 @@ def call_explain_game():
 player_posX = 0
 player_posY = 0
 
+is_up = False
+is_down = False
 is_right = False
 is_left = False
 
 walkCount = 0
 
 def player_move():
-    global player_posX, player_posY, walkCount, is_left, is_right
+    global player_posX, player_posY, walkCount, is_up, is_down, is_right, is_left
 
     screen.fill((0, 0, 0))
 
-    right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_2.png")]
+    down_walk = [pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_1.png"), 
+                    pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_2.png"),
+                    pygame.image.load("images/player/Player_Down_2.png"), pygame.image.load("images/player/Player_Down_2.png")]
 
-    left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_2.png")]
+    up_walk = [pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_1.png"), 
+                    pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_2.png"),
+                    pygame.image.load("images/player/Player_Up_2.png"), pygame.image.load("images/player/Player_Up_2.png")]
+
+    right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_1.png"), 
+                    pygame.image.load("images/player/Player_Right_2.png"), pygame.image.load("images/player/Player_Right_3.png"),
+                    pygame.image.load("images/player/Player_Right_3.png"), pygame.image.load("images/player/Player_Right_4.png")]
+
+    left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_1.png"), 
+                    pygame.image.load("images/player/Player_Left_2.png"), pygame.image.load("images/player/Player_Left_3.png"),
+                    pygame.image.load("images/player/Player_Left_3.png"), pygame.image.load("images/player/Player_Left_4.png")]
 
     idle = pygame.image.load("images/player/Player_Idle_1.png")
 
-    if walkCount > 1:
+    if walkCount > 5:
         walkCount = 0
 
-    if is_left == True:
-        screen.blit(left_walk[walkCount], (player_posX, player_posY))
+    if is_down == True:
+        screen.blit(down_walk[walkCount], (player_posX, player_posY))
+        walkCount += 1
+    elif is_up == True:
+        screen.blit(up_walk[walkCount], (player_posX, player_posY))
         walkCount += 1
     elif is_right == True:
         screen.blit(right_walk[walkCount], (player_posX, player_posY))
+        walkCount += 1
+    elif is_left == True:
+        screen.blit(left_walk[walkCount], (player_posX, player_posY))
         walkCount += 1
     else:
         screen.blit(idle, ( player_posX, player_posY))
@@ -94,7 +114,7 @@ def player_move():
 def game():
     
     newline = 0
-    global player_posX, player_posY, walkCount, is_left, is_right
+    global player_posX, player_posY, walkCount, is_up, is_down, is_right, is_left
 
     while True:
         fps.tick(30)
@@ -110,30 +130,60 @@ def game():
                     if newline > 5:
                         game()
 
+                if event.key == pygame.K_w:
+                    is_up = True
+                    is_down = False
+                    is_right = False
+                    is_left = False
+                if event.key == pygame.K_s:
+                    is_down = True
+                    is_up = False
+                    is_right = False
+                    is_left = False
                 if event.key == pygame.K_d:
                     is_right = True
+                    is_down = False
+                    is_up = False
                     is_left = False
                 if event.key == pygame.K_a:
                     is_left = True
                     is_right = False
+                    is_down = False
+                    is_up = False
+                    
 
             if event.type == pygame.KEYUP:
+                if event.key == pygame.K_w:
+                    is_up = False
+                    is_down = False
+                    is_right = False
+                    is_left = False
+                if event.key == pygame.K_s:
+                    is_up = False
+                    is_down = False
+                    is_right = False
+                    is_left = False
                 if event.key == pygame.K_d:
+                    is_up = False
+                    is_down = False
                     is_right = False
                     is_left = False
                 if event.key == pygame.K_a:
-                    is_left = False
+                    is_up = False
+                    is_down = False
                     is_right = False
+                    is_left = False
        
-        if is_right == True:
+        if is_down == True:
+            player_posY += 10
+        elif is_up == True:
+            player_posY -= 10
+        elif is_right == True:
             player_posX += 10
-
         elif is_left == True:
             player_posX -= 10
-
         else:
             walkCount = 0
-        
         
         player_move()
         pygame.display.update()
