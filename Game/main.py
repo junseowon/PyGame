@@ -149,8 +149,8 @@ def main_game():
     player_posX = 565
     player_posY = 285
 
-    animal_posX = 665
-    animal_posY = 185
+    animal_posX = 865
+    animal_posY = 85
 
     line = 0
 
@@ -161,7 +161,7 @@ def main_game():
 
         fps.tick(30)
         if is_move == True:
-            screen.fill((0, 0, 0))
+            screen.fill(BLUE)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -219,16 +219,16 @@ def main_game():
        
         if is_down == True:
             player_posY += 10
-            screen.fill((0, 0, 0))
+            screen.fill(BLUE)
         elif is_up == True:
             player_posY -= 10
-            screen.fill((0, 0, 0))
+            screen.fill(BLUE)
         elif is_right == True:
             player_posX += 10
-            screen.fill((0, 0, 0))
+            screen.fill(BLUE)
         elif is_left == True:
             player_posX -= 10
-            screen.fill((0, 0, 0))
+            screen.fill(BLUE)
         else:
             walkCount = 0
 
@@ -240,7 +240,7 @@ def main_game():
                 hamzzizzi_dialog(screen, BLACK, line)
                 is_read = False
 
-                if line > 5:
+                if line > 5:                    
                     line = 0
     
         if is_animal_touch == False:
