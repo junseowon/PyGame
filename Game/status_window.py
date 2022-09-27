@@ -4,10 +4,11 @@ from load_fonts import *
 def Park_Jin_cheol_dialog():
     pass
 
-
 def hamzzizzi_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
+
+    pixel_font(input_screen, "햄찌", font_color, 295, 490, 30)
 
     if input_line == 1:
         pixel_font(input_screen, "동물 친구와 멀어져서 대화를 종료하거나 SPACE를 누르면 말을", font_color, 200, 550, 30)

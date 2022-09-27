@@ -139,12 +139,11 @@ class Animal(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(input_animal_image)
 
 is_read = False
-is_move = True
 
 #시작하면 게임창에서 시작
 def main_game():
     global player_posX, player_posY, is_up, is_down, is_right, is_left
-    global walkCount, is_animal_touch, is_read, is_move, animal_posX, animal_posY, animal_image, player_image
+    global walkCount, is_animal_touch, is_read, animal_posX, animal_posY, animal_image, player_image
 
     player_posX = 565
     player_posY = 285
@@ -160,15 +159,13 @@ def main_game():
         player = Player(player_image)
 
         fps.tick(30)
-        if is_move == True:
-            screen.fill(BLUE)
+        screen.fill(BLUE)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
             if event.type == pygame.KEYDOWN:
-                is_move = True
                 if event.key == pygame.K_SPACE:
                     is_read = True                    
 
@@ -194,7 +191,6 @@ def main_game():
                     is_up = False
 
             if event.type == pygame.KEYUP:
-                is_move = True
                 if event.key == pygame.K_w:
                     is_up = False
                     is_down = False
