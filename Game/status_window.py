@@ -10,8 +10,8 @@ def hamzzizzi_dialog(input_screen, font_color, input_line):
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
-        pixel_font(input_screen, "E를 눌러 대화를 종료하거나 SPACE를 누르면 말을 걸 수", font_color, 200, 550, 30)
-        pixel_font(input_screen, "있습니다.", font_color, 200, 580, 30) 
+        pixel_font(input_screen, "동물 친구와 멀어져서 대화를 종료하거나 SPACE를 누르면 말을", font_color, 200, 550, 30)
+        pixel_font(input_screen, " 걸 수 있습니다.", font_color, 200, 580, 30) 
     elif input_line == 2:
         pixel_font(input_screen, "해바라기씨를 잃어버렸어요...", font_color, 200, 550, 30)
     elif input_line == 3:

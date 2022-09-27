@@ -115,43 +115,49 @@ def player_load():
 #동물 친구들 기본 위치
 animal_posX = 0
 animal_posY = 0
+
 #동물 친구와 충돌 상태
 is_animal_touch = False
 
-animal_image = pygame.image.load("images/characters/hamster_zzizzi.png")
+animal_image = pygame.image.load("images/characters/hamster_zzizzi.png").convert_alpha()
+player_image = pygame.image.load("images/player/Player_Idle_1.png").convert_alpha()
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, input_player_image):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/player/Player_Idle_1.png")
-        self.rect = self.image.get_rect()
-        self.rect.centerx = player_posX
-        self.rect.centery = player_posY
+        self.input_player_image = input_player_image
+        self.rect = self.input_player_image.get_rect()
+        self.rect.center = (player_posX, player_posY)
+        self.mask = pygame.mask.from_surface(input_player_image)
 
 class Animal(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, input_animal_image):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("images/characters/hamster_zzizzi.png")
-        self.rect = self.image.get_rect()
-        self.rect.centerx = animal_posX
-        self.rect.centery = animal_posY
+        self.input_animal_image = input_animal_image
+        self.rect = self.input_animal_image.get_rect()
+        self.rect.center = (animal_posX, animal_posY)
+        self.mask = pygame.mask.from_surface(input_animal_image)
 
 is_read = False
 is_move = True
 
 #시작하면 게임창에서 시작
 def main_game():
-    global player_posX, player_posY, is_up, is_down, is_right, is_left, walkCount, is_animal_touch, is_read, is_move
+    global player_posX, player_posY, is_up, is_down, is_right, is_left
+    global walkCount, is_animal_touch, is_read, is_move, animal_posX, animal_posY, animal_image, player_image
 
     player_posX = 565
     player_posY = 285
+
+    animal_posX = 665
+    animal_posY = 185
 
     line = 0
 
     while True:
 
-        animal = Animal()
-        player = Player()
+        animal = Animal(animal_image)
+        player = Player(player_image)
 
         fps.tick(30)
         if is_move == True:
@@ -164,11 +170,7 @@ def main_game():
             if event.type == pygame.KEYDOWN:
                 is_move = True
                 if event.key == pygame.K_SPACE:
-                    is_read = True
-                if event.key == pygame.K_e:
-                    is_read = False
-                    line = 0
-                    
+                    is_read = True                    
 
                 if event.key == pygame.K_w:
                     is_up = True
@@ -231,11 +233,7 @@ def main_game():
             walkCount = 0
 
         if pygame.sprite.collide_rect(player, animal):
-            is_up = False
-            is_down = False
-            is_right = False
-            is_left = False
-            is_move = False
+            hamzzizzi_dialog(screen, BLACK, line)            
 
             if is_read == True or line == 0:
                 line += 1
