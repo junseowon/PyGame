@@ -67,7 +67,6 @@ def hamzzizzi_dialog_clear(input_screen, font_color, input_line):
     elif input_line == 13:
         pixel_font(input_screen, "햄찌", font_color, 295, 490, 30)
         pixel_font(input_screen, "찾아주셔서 감사합니다!! 그럼 저는 선물을 주러갈게요!!~~", font_color, 200, 550, 30)
-    
 
 def seed_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")
@@ -76,9 +75,7 @@ def seed_dialog(input_screen, font_color, input_line):
     if input_line == 1:
         pixel_font(input_screen, "???", font_color, 295, 490, 30)
         pixel_font(input_screen, "씨앗이 떨어져 있습니다. 이 씨앗의 주인은 누굴까요?", font_color, 200, 550, 30) 
-    elif input_line == 2:
-        pixel_font(input_screen, "???", font_color, 295, 490, 30)
-        pixel_font(input_screen, "씨앗을 주으려면 E를 눌러주세요.", font_color, 200, 550, 30)
+        pixel_font(input_screen, "씨앗을 주으려면 E를 눌러주세요.", font_color, 200, 600, 30)
 
 def pengiun_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")

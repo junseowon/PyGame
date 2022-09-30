@@ -145,8 +145,10 @@ def main_game():
     player_posX = 565
     player_posY = 285
 
-    hamzzizzi = pygame.image.load("images/characters/hamster_zzizzi.png").convert_alpha()
-    hamzzizzi_success = pygame.image.load("images/characters/hamster_zzizzi_success.png").convert_alpha()
+    hamzzizzi = pygame.image.load("images/characters/hamster_zzizzi.png")
+    hamzzizzi_success = pygame.image.load("images/characters/hamster_zzizzi_success.png")
+
+    pengiun = pygame.image.load("images/characters/penguin_cry.png")
 
     sunflower_seed = pygame.image.load("images/quests/sunflower_seeds.png").convert_alpha()
 
@@ -173,7 +175,7 @@ def main_game():
                 if event.key == pygame.K_SPACE:
                     is_read = True
 
-                if event.key == pygame.K_e and line == 2:                    
+                if event.key == pygame.K_e and line == 1:                    
                     quest_clear = True
 
                 if event.key == pygame.K_w:
@@ -251,7 +253,7 @@ def main_game():
 
                 if line > 5:                    
                     line = 1
-                    is_read = False     
+                    is_read = False
         elif pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and quest_clear == True:
             hamzzizzi_dialog_clear(screen, BLACK,line)
 
@@ -270,11 +272,7 @@ def main_game():
                 
                 if quest_clear == False:
                     animal.remove(animal)
-
-        if not pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and not pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
-            line = 0
-            is_read = False
-            print(line)
+                    animal = pygame.sprite.GroupSingle(Animal(pengiun, 0, 0))
 
         if pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
             seed_dialog(screen, BLACK, line)
@@ -284,14 +282,19 @@ def main_game():
                 seed_dialog(screen, BLACK, line)
                 is_read = False
 
-                if line > 2:
+                if line > 1:
                     line = 1
                     is_read = False
                     
             if quest_clear == True:
-                line = 1
+                line = 1                
                 is_read = False
-                quest.remove(quest)        
+                quest.remove(quest)
+
+        if not pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and not pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
+            line = 0
+            is_read = False            
+            print(line)
 
         pygame.display.update()
 
