@@ -1,3 +1,4 @@
+from email.mime import image
 import pygame
 from load_fonts import *
 from button_UI import *
@@ -71,92 +72,95 @@ is_down = False
 is_right = False
 is_left = False
 
-#플레이어 움직임 애니메이션과 그리기함수!
-def player_load():
-
-    global player_posX, player_posY, is_up, is_down, is_right, is_left, walkCount
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("images/player/Player_Idle_1.png").convert_alpha()
+        self.image.set_alpha(0)
+        self.rect = self.image.get_rect(topleft = (565, 285))
+        self.mask = pygame.mask.from_surface(self.image)
+    
+    def update(self):
+        global player_posX, player_posY, is_up, is_down, is_right, is_left, walkCount
     #아래로 걷는 프레임!
-    down_walk = [pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_1.png"), 
+        down_walk = [pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_1.png"), 
                     pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_2.png"),
                     pygame.image.load("images/player/Player_Down_2.png"), pygame.image.load("images/player/Player_Down_2.png")]
     #위로 걷는 프레임!
-    up_walk = [pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_1.png"), 
+        up_walk = [pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_1.png"), 
                     pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_2.png"),
                     pygame.image.load("images/player/Player_Up_2.png"), pygame.image.load("images/player/Player_Up_2.png")]
     #오른쪽으로 걷는 프레임!
-    right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_1.png"), 
+        right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_1.png"), 
                     pygame.image.load("images/player/Player_Right_2.png"), pygame.image.load("images/player/Player_Right_3.png"),
                     pygame.image.load("images/player/Player_Right_3.png"), pygame.image.load("images/player/Player_Right_4.png")]
     #왼쪽으로 걷는 프레임!
-    left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_1.png"), 
+        left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_1.png"), 
                     pygame.image.load("images/player/Player_Left_2.png"), pygame.image.load("images/player/Player_Left_3.png"),
                     pygame.image.load("images/player/Player_Left_3.png"), pygame.image.load("images/player/Player_Left_4.png")]
     #가만히 있는 프레임!
-    idle = pygame.image.load("images/player/Player_Idle_1.png")
+        idle = pygame.image.load("images/player/Player_Idle_1.png")
     #걷기횟수가 5초과면 0으로!
-    if walkCount > 5:
-        walkCount = 0
+        if walkCount > 5:
+            walkCount = 0
 
-    if is_down == True:
-        screen.blit(down_walk[walkCount], (player_posX, player_posY))       #프레임 값을 가져와서 x, y위치에 그리기!
-        walkCount += 1
-    elif is_up == True:
-        screen.blit(up_walk[walkCount], (player_posX, player_posY))         #프레임 값을 가져와서 x, y위치에 그리기!
-        walkCount += 1
-    elif is_right == True:
-        screen.blit(right_walk[walkCount], (player_posX, player_posY))      #프레임 값을 가져와서 x, y위치에 그리기!
-        walkCount += 1
-    elif is_left == True:
-        screen.blit(left_walk[walkCount], (player_posX, player_posY))       #프레임 값을 가져와서 x, y위치에 그리기!
-        walkCount += 1
-    else:
-        screen.blit(idle, ( player_posX, player_posY))
+        if is_down == True:
+            screen.blit(down_walk[walkCount], (player_posX, player_posY))       #프레임 값을 가져와서 x, y위치에 그리기!
+            walkCount += 1
+        elif is_up == True:
+            screen.blit(up_walk[walkCount], (player_posX, player_posY))         #프레임 값을 가져와서 x, y위치에 그리기!
+            walkCount += 1
+        elif is_right == True:
+            screen.blit(right_walk[walkCount], (player_posX, player_posY))      #프레임 값을 가져와서 x, y위치에 그리기!
+            walkCount += 1
+        elif is_left == True:
+            screen.blit(left_walk[walkCount], (player_posX, player_posY))       #프레임 값을 가져와서 x, y위치에 그리기!
+            walkCount += 1
+        else:
+            screen.blit(idle, ( player_posX, player_posY))
 
-#동물 친구들 기본 위치
-animal_posX = 0
-animal_posY = 0
-
-#동물 친구와 충돌 상태
-is_animal_touch = False
-
-animal_image = pygame.image.load("images/characters/hamster_zzizzi.png").convert_alpha()
-player_image = pygame.image.load("images/player/Player_Idle_1.png").convert_alpha()
-
-class Player(pygame.sprite.Sprite):
-    def __init__(self, input_player_image):
-        pygame.sprite.Sprite.__init__(self)
-        self.input_player_image = input_player_image
-        self.rect = self.input_player_image.get_rect()
-        self.rect.center = (player_posX, player_posY)
-        self.mask = pygame.mask.from_surface(input_player_image)
+        self.rect.topleft = (player_posX, player_posY)
 
 class Animal(pygame.sprite.Sprite):
-    def __init__(self, input_animal_image):
-        pygame.sprite.Sprite.__init__(self)
-        self.input_animal_image = input_animal_image
-        self.rect = self.input_animal_image.get_rect()
-        self.rect.center = (animal_posX, animal_posY)
-        self.mask = pygame.mask.from_surface(input_animal_image)
+    def __init__(self, animal, animal_x, animal_y):
+        super().__init__()
+        self.image = animal
+        self.rect = self.image.get_rect(center = (animal_x, animal_y))
+        self.mask = pygame.mask.from_surface(self.image)
 
-is_read = False
+class Quest(pygame.sprite.Sprite):
+    def __init__(self, quest, animal_x, animal_y):
+        super().__init__()
+        self.image = quest
+        self.rect = self.image.get_rect(center = (animal_x, animal_y))
+        self.mask = pygame.mask.from_surface(self.image)
 
 #시작하면 게임창에서 시작
 def main_game():
+    menu_music(0, 1)
+    background_music(1, 0.5)
     global player_posX, player_posY, is_up, is_down, is_right, is_left
-    global walkCount, is_animal_touch, is_read, animal_posX, animal_posY, animal_image, player_image
+    global walkCount, player, animal
 
     player_posX = 565
     player_posY = 285
 
-    animal_posX = 865
-    animal_posY = 85
+    hamzzizzi = pygame.image.load("images/characters/hamster_zzizzi.png").convert_alpha()
+    hamzzizzi_success = pygame.image.load("images/characters/hamster_zzizzi_success.png").convert_alpha()
 
-    line = 0
+    sunflower_seed = pygame.image.load("images/quests/sunflower_seeds.png").convert_alpha()
+
+    player = pygame.sprite.GroupSingle(Player())
+    animal = pygame.sprite.GroupSingle(Animal(hamzzizzi, 865, 85))
+    quest = pygame.sprite.GroupSingle(Quest(sunflower_seed, 50, 85))
+
+    line = 1
+
+    is_read = False
+
+    quest_clear = False
 
     while True:
-
-        animal = Animal(animal_image)
-        player = Player(player_image)
 
         fps.tick(30)
         screen.fill(BLUE)
@@ -167,7 +171,10 @@ def main_game():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    is_read = True                    
+                    is_read = True
+
+                if event.key == pygame.K_e and line == 2:                    
+                    quest_clear = True
 
                 if event.key == pygame.K_w:
                     is_up = True
@@ -227,8 +234,14 @@ def main_game():
             screen.fill(BLUE)
         else:
             walkCount = 0
+        
+        player.draw(screen)
+        animal.draw(screen)
+        quest.draw(screen)
 
-        if pygame.sprite.collide_rect(player, animal):
+        player.update()
+
+        if pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and quest_clear == False:
             hamzzizzi_dialog(screen, BLACK, line)            
 
             if is_read == True or line == 0:
@@ -237,12 +250,48 @@ def main_game():
                 is_read = False
 
                 if line > 5:                    
-                    line = 0
-    
-        if is_animal_touch == False:
-            screen.blit(animal_image, (animal_posX, animal_posY))
+                    line = 1
+                    is_read = False     
+        elif pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and quest_clear == True:
+            hamzzizzi_dialog_clear(screen, BLACK,line)
 
-        player_load()
+            if is_read == True or line == 0:
+                line += 1
+                hamzzizzi_dialog_clear(screen, BLACK, line)
+                is_read = False
+
+                if line == 6:
+                    animal = pygame.sprite.GroupSingle(Animal(hamzzizzi_success, 865, 85))
+
+                if line > 13:
+                    line = 1
+                    is_read = False
+                    quest_clear = False
+                
+                if quest_clear == False:
+                    animal.remove(animal)
+
+        if not pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and not pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
+            line = 0
+            is_read = False
+            print(line)
+
+        if pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
+            seed_dialog(screen, BLACK, line)
+
+            if is_read == True or line == 0:
+                line += 1
+                seed_dialog(screen, BLACK, line)
+                is_read = False
+
+                if line > 2:
+                    line = 1
+                    is_read = False
+                    
+            if quest_clear == True:
+                line = 1
+                is_read = False
+                quest.remove(quest)        
 
         pygame.display.update()
 
