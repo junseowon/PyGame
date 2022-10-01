@@ -76,7 +76,7 @@ is_left = False
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("images/player/Player_Idle_1.png").convert_alpha()
+        self.image = pygame.image.load("images/UIs/collision_box.png").convert_alpha()
         self.image.set_alpha(0)
         self.rect = self.image.get_rect(topleft = (565, 285))
         self.mask = pygame.mask.from_surface(self.image)
@@ -94,11 +94,11 @@ class Player(pygame.sprite.Sprite):
     #오른쪽으로 걷는 프레임!
         right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_1.png"), 
                         pygame.image.load("images/player/Player_Right_2.png"), pygame.image.load("images/player/Player_Right_3.png"),
-                    pygame.image.load("images/player/Player_Right_3.png"), pygame.image.load("images/player/Player_Right_4.png")]
+                    pygame.image.load("images/player/Player_Right_3.png"), pygame.image.load("images/player/Player_Right_2.png")]
     #왼쪽으로 걷는 프레임!
         left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_1.png"), 
                         pygame.image.load("images/player/Player_Left_2.png"), pygame.image.load("images/player/Player_Left_3.png"),
-                    pygame.image.load("images/player/Player_Left_3.png"), pygame.image.load("images/player/Player_Left_4.png")]
+                    pygame.image.load("images/player/Player_Left_3.png"), pygame.image.load("images/player/Player_Left_2.png")]
     #가만히 있는 프레임!
         idle = pygame.image.load("images/player/Player_Idle_1.png")
     #걷기횟수가 5초과면 0으로!
@@ -126,8 +126,7 @@ class Player(pygame.sprite.Sprite):
 def main_game():
     menu_music(0, 1)
     background_music(1, 0.5)
-    global player_posX, player_posY, is_up, is_down, is_right, is_left
-    global walkCount, player, animal
+    global player_posX, player_posY, is_up, is_down, is_right, is_left, walkCount
 
     player_posX = 565
     player_posY = 285
@@ -211,20 +210,15 @@ def main_game():
                     is_down = False
                     is_right = False
                     is_left = False
-                    
-       
+
         if is_down == True:
             player_posY += 10
-            #background_1(screen)
         elif is_up == True:
             player_posY -= 10
-            #background_1(screen)
         elif is_right == True:
             player_posX += 10
-            #background_1(screen)
         elif is_left == True:
             player_posX -= 10
-            #background_1(screen)
         else:
             walkCount = 0
         
@@ -282,6 +276,18 @@ def main_game():
                 line = 1                
                 is_read = False
                 quest.remove(quest)
+
+        if pygame.sprite.spritecollide(player.sprite, obstacle, False, pygame.sprite.collide_mask):
+            obstacle_dialog(screen, BLACK, line)
+
+            if is_read == True or line == 0:
+                line += 1
+                obstacle_dialog(screen, BLACK, line)
+                is_read = False
+
+                if line > 1:
+                    line = 1
+                    is_read = False
 
         if not pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and not pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
             line = 0

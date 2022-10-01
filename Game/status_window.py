@@ -1,6 +1,6 @@
 import pygame
 from load_fonts import *
-
+#hamzzizzi 대화 상태창
 def hamzzizzi_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
@@ -76,6 +76,7 @@ def seed_dialog(input_screen, font_color, input_line):
         pixel_font(input_screen, "???", font_color, 295, 490, 30)
         pixel_font(input_screen, "씨앗이 떨어져 있습니다. 이 씨앗의 주인은 누굴까요?", font_color, 200, 550, 30) 
         pixel_font(input_screen, "씨앗을 주으려면 E를 눌러주세요.", font_color, 200, 600, 30)
+#hamzzizzi 대화 상태창 끝
 
 def pengiun_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")
@@ -98,3 +99,12 @@ def pengiun_dialog(input_screen, font_color, input_line):
         pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "팽돌이를 도와 팽돌이 어머니를 찾아주세요.", font_color, 200, 550, 30)
             
+
+def obstacle_dialog(input_screen, font_color, input_line):
+    dialog = pygame.image.load("images/UIs/Dialog.png")
+    input_screen.blit(dialog, (0, 0))
+
+    if input_line == 1:
+        pixel_font(input_screen, "???", font_color, 295, 490, 30)
+        pixel_font(input_screen, "연못이 깊어 보입니다...", font_color, 200, 550, 30) 
+        pixel_font(input_screen, "지나가기 힘들어 보이네요...", font_color, 200, 600, 30)
