@@ -78,7 +78,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load("images/UIs/collision_box.png").convert_alpha()
         self.image.set_alpha(0)
-        self.rect = self.image.get_rect(topleft = (565, 285))
+        self.rect = self.image.get_rect(topleft = (365, 285))
         self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
@@ -153,14 +153,14 @@ def main_game():
 
     while True:
 
-        fps.tick(60)
+        fps.tick(30)
 
         background_1(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-
+            
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     is_read = True
@@ -214,14 +214,14 @@ def main_game():
         if is_down == True:
             player_posY += 10
         elif is_up == True:
-            player_posY -= 10
+            player_posY -= 10            
         elif is_right == True:
-            player_posX += 10
+            player_posX += 10            
         elif is_left == True:
-            player_posX -= 10
+            player_posX -= 10            
         else:
             walkCount = 0
-        
+
         player.draw(screen)
         animal.draw(screen)
         quest.draw(screen)
