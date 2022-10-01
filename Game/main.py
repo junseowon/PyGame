@@ -1,4 +1,3 @@
-from email.mime import image
 import pygame
 from load_fonts import *
 from button_UI import *
@@ -7,6 +6,8 @@ from game import *
 from player import *
 from status_window import *
 from player import *
+from load_backgrounds import *
+from collision_detection import *
 
 pygame.init()
 
@@ -84,7 +85,7 @@ class Player(pygame.sprite.Sprite):
         global player_posX, player_posY, is_up, is_down, is_right, is_left, walkCount
     #아래로 걷는 프레임!
         down_walk = [pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_1.png"), 
-                    pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_2.png"),
+                    pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_2.png"), 
                     pygame.image.load("images/player/Player_Down_2.png"), pygame.image.load("images/player/Player_Down_2.png")]
     #위로 걷는 프레임!
         up_walk = [pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_1.png"), 
@@ -92,11 +93,11 @@ class Player(pygame.sprite.Sprite):
                     pygame.image.load("images/player/Player_Up_2.png"), pygame.image.load("images/player/Player_Up_2.png")]
     #오른쪽으로 걷는 프레임!
         right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_1.png"), 
-                    pygame.image.load("images/player/Player_Right_2.png"), pygame.image.load("images/player/Player_Right_3.png"),
+                        pygame.image.load("images/player/Player_Right_2.png"), pygame.image.load("images/player/Player_Right_3.png"),
                     pygame.image.load("images/player/Player_Right_3.png"), pygame.image.load("images/player/Player_Right_4.png")]
     #왼쪽으로 걷는 프레임!
         left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_1.png"), 
-                    pygame.image.load("images/player/Player_Left_2.png"), pygame.image.load("images/player/Player_Left_3.png"),
+                        pygame.image.load("images/player/Player_Left_2.png"), pygame.image.load("images/player/Player_Left_3.png"),
                     pygame.image.load("images/player/Player_Left_3.png"), pygame.image.load("images/player/Player_Left_4.png")]
     #가만히 있는 프레임!
         idle = pygame.image.load("images/player/Player_Idle_1.png")
@@ -121,20 +122,6 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.topleft = (player_posX, player_posY)
 
-class Animal(pygame.sprite.Sprite):
-    def __init__(self, animal, animal_x, animal_y):
-        super().__init__()
-        self.image = animal
-        self.rect = self.image.get_rect(center = (animal_x, animal_y))
-        self.mask = pygame.mask.from_surface(self.image)
-
-class Quest(pygame.sprite.Sprite):
-    def __init__(self, quest, animal_x, animal_y):
-        super().__init__()
-        self.image = quest
-        self.rect = self.image.get_rect(center = (animal_x, animal_y))
-        self.mask = pygame.mask.from_surface(self.image)
-
 #시작하면 게임창에서 시작
 def main_game():
     menu_music(0, 1)
@@ -150,11 +137,14 @@ def main_game():
 
     pengiun = pygame.image.load("images/characters/penguin_cry.png")
 
-    sunflower_seed = pygame.image.load("images/quests/sunflower_seeds.png").convert_alpha()
+    sunflower_seed = pygame.image.load("images/quests/sunflower_seeds.png")
+
+    pond = pygame.image.load("images/backgrounds/pond.png")
 
     player = pygame.sprite.GroupSingle(Player())
     animal = pygame.sprite.GroupSingle(Animal(hamzzizzi, 865, 85))
-    quest = pygame.sprite.GroupSingle(Quest(sunflower_seed, 50, 85))
+    quest = pygame.sprite.GroupSingle(Quest(sunflower_seed, 1250, 50))
+    obstacle = pygame.sprite.GroupSingle(Obstacle(pond, 1100, 150))
 
     line = 1
 
@@ -164,8 +154,9 @@ def main_game():
 
     while True:
 
-        fps.tick(30)
-        screen.fill(BLUE)
+        fps.tick(60)
+
+        background_1(screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -224,22 +215,23 @@ def main_game():
        
         if is_down == True:
             player_posY += 10
-            screen.fill(BLUE)
+            #background_1(screen)
         elif is_up == True:
             player_posY -= 10
-            screen.fill(BLUE)
+            #background_1(screen)
         elif is_right == True:
             player_posX += 10
-            screen.fill(BLUE)
+            #background_1(screen)
         elif is_left == True:
             player_posX -= 10
-            screen.fill(BLUE)
+            #background_1(screen)
         else:
             walkCount = 0
         
         player.draw(screen)
         animal.draw(screen)
         quest.draw(screen)
+        obstacle.draw(screen)
 
         player.update()
 
@@ -294,7 +286,6 @@ def main_game():
         if not pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and not pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
             line = 0
             is_read = False            
-            print(line)
 
         pygame.display.update()
 

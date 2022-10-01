@@ -6,7 +6,7 @@ def hamzzizzi_dialog(input_screen, font_color, input_line):
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
-        pixel_font(input_screen, "햄찌", font_color, 295, 490, 30)
+        pixel_font(input_screen, "???", font_color, 295, 490, 30)
         pixel_font(input_screen, "동물 친구와 멀어져서 대화를 종료하거나 SPACE를 누르면 말을", font_color, 200, 550, 30)
         pixel_font(input_screen, " 걸 수 있습니다.", font_color, 200, 580, 30) 
     elif input_line == 2:
@@ -27,7 +27,7 @@ def hamzzizzi_dialog_clear(input_screen, font_color, input_line):
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
-        pixel_font(input_screen, "햄찌", font_color, 295, 490, 30)
+        pixel_font(input_screen, "???", font_color, 295, 490, 30)
         pixel_font(input_screen, "동물 친구와 멀어져서 대화를 종료하거나 SPACE를 누르면 말을", font_color, 200, 550, 30)
         pixel_font(input_screen, " 걸 수 있습니다.", font_color, 200, 580, 30) 
     elif input_line == 2:
@@ -81,17 +81,20 @@ def pengiun_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
-    pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
-
     if input_line == 1:
+        pixel_font(input_screen, "???", font_color, 295, 490, 30)
         pixel_font(input_screen, "동물 친구와 멀어져서 대화를 종료하거나 SPACE를 누르면 말을", font_color, 200, 550, 30)
         pixel_font(input_screen, " 걸 수 있습니다.", font_color, 200, 580, 30) 
     elif input_line == 2:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "후에에에엥ㅠㅠㅠㅠ", font_color, 200, 550, 30)
     elif input_line == 3:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "아저씨 저 좀 도와주세요ㅠㅠㅠㅠ", font_color, 200, 550, 30)
     elif input_line == 4:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "엄마가 어디가셨는지 모르겠어요ㅠㅠㅠㅠㅠ", font_color, 200, 550, 30)
     elif input_line == 5:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "팽돌이를 도와 팽돌이 어머니를 찾아주세요.", font_color, 200, 550, 30)
             
