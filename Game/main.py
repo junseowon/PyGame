@@ -64,7 +64,7 @@ def call_explain_game():
 player_posX = 0
 player_posY = 0
 
-#플레이어 걷기 횟수 감지 변수
+#플레이어 걷기 프레임 수 변수
 walkCount = 0
 
 #키보드 키 누르는 상태
@@ -124,12 +124,23 @@ class Player(pygame.sprite.Sprite):
 
 #시작하면 게임창에서 시작
 def main_game():
-    menu_music(0, 1)
-    background_music(1, 0.5)
+
     global player_posX, player_posY, is_up, is_down, is_right, is_left, walkCount
 
-    player_posX = 565
-    player_posY = 285
+    line = 1
+
+    is_read = False
+
+    quest_clear = False
+    
+    #배경 상태
+    background = 1
+
+    menu_music(0, 1)
+    background_music(1, 0.5)
+    
+    player_posX = 0
+    player_posY = 320
 
     hamzzizzi = pygame.image.load("images/characters/hamster_zzizzi.png")
     hamzzizzi_success = pygame.image.load("images/characters/hamster_zzizzi_success.png")
@@ -145,18 +156,37 @@ def main_game():
     quest = pygame.sprite.GroupSingle(Quest(sunflower_seed, 1250, 50))
     obstacle = pygame.sprite.GroupSingle(Obstacle(pond, 1100, 150))
 
-    line = 1
-
-    is_read = False
-
-    quest_clear = False
-
     while True:
 
         fps.tick(30)
 
-        background_1(screen)
+        if player_posX > 1280:
+            player_posX = -75
+            background = 2
+            quest = pygame.sprite.GroupSingle(Quest(sunflower_seed, 1250, 50))
+            animal.remove(animal)            
+            obstacle.remove(obstacle)
+            print(background)
+        elif player_posX < -90:
+            player_posX = 1270
+            background = 1
+            quest.remove(quest)
+            animal = pygame.sprite.GroupSingle(Animal(hamzzizzi, 865, 85))          
+            obstacle = pygame.sprite.GroupSingle(Obstacle(pond, 1100, 150))
+            print(background)
+        
+        if background == 1:
+            background_1(screen)
+            animal.draw(screen)            
+            obstacle.draw(screen)
+            
+        elif background == 2:
+            background_2(screen)
+            quest.draw(screen)
 
+        player.draw(screen)
+        player.update()
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -222,13 +252,6 @@ def main_game():
         else:
             walkCount = 0
 
-        player.draw(screen)
-        animal.draw(screen)
-        quest.draw(screen)
-        obstacle.draw(screen)
-
-        player.update()
-
         if pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and quest_clear == False:
             hamzzizzi_dialog(screen, BLACK, line)            
 
@@ -258,7 +281,7 @@ def main_game():
                 
                 if quest_clear == False:
                     animal.remove(animal)
-                    animal = pygame.sprite.GroupSingle(Animal(pengiun, 0, 0))
+                    animal = pygame.sprite.GroupSingle(Animal(pengiun, 1000, 600))
 
         if pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
             seed_dialog(screen, BLACK, line)
@@ -291,8 +314,8 @@ def main_game():
 
         if not pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and not pygame.sprite.spritecollide(player.sprite, quest, False, pygame.sprite.collide_mask):
             line = 0
-            is_read = False            
-
+            is_read = False
+    
         pygame.display.update()
 
 start_game()
