@@ -3,7 +3,7 @@ from load_fonts import *
 from button_UI import *
 #hamzzizzi 대화 상태창
 def hamzzizzi_dialog(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
@@ -24,7 +24,7 @@ def hamzzizzi_dialog(input_screen, font_color, input_line):
         pixel_font(input_screen, "햄찌찌씨를 도와 잃어버린 선물을 찾아주세요.", font_color, 200, 550, 30)
 
 def hamzzizzi_dialog_clear(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
@@ -70,7 +70,7 @@ def hamzzizzi_dialog_clear(input_screen, font_color, input_line):
         pixel_font(input_screen, "찾아주셔서 감사합니다!! 그럼 저는 선물을 주러갈게요!!~~", font_color, 200, 550, 30)
 
 def seed_dialog(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
@@ -80,7 +80,7 @@ def seed_dialog(input_screen, font_color, input_line):
 #hamzzizzi 대화 상태창 끝
 
 def pengiun_dialog(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
@@ -102,7 +102,7 @@ def pengiun_dialog(input_screen, font_color, input_line):
 
 def pengiun_dialog_clear(input_screen, font_color, input_line):
 
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
@@ -131,7 +131,7 @@ def pengiun_dialog_clear(input_screen, font_color, input_line):
     Button(input_screen, cancel_button, 712, 550, 128, 128, cancel_button_act, 712, 550, pengiun_dialog_clear_choice2(input_screen, font_color, input_line))
 
 def pengiun_dialog_clear_choice1(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 6:
@@ -188,7 +188,7 @@ def pengiun_dialog_clear_choice2(input_screen, font_color, input_line):
         pixel_font(input_screen, "저 먼저 가볼게요...ㅠㅠㅠ", font_color, 200, 550, 30)
 
 def duck_doll_dialog(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:
@@ -197,7 +197,7 @@ def duck_doll_dialog(input_screen, font_color, input_line):
         pixel_font(input_screen, "인형을 주으려면 E를 눌러주세요.", font_color, 200, 600, 30)          
 
 def obstacle_dialog(input_screen, font_color, input_line):
-    dialog = pygame.image.load("images/UIs/Dialog.png")
+    dialog = pygame.image.load("E:/PyGame/Game/images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
     if input_line == 1:

@@ -29,8 +29,8 @@ fps = pygame.time.Clock()
 def start_game():
     menu(screen, BLACK)
     #버튼 이미지 불러오기
-    howtoplay_button = pygame.image.load("Game/images/UIs/howtoplay_button.png")
-    howtoplay_button_act = pygame.image.load("Game/images/UIs/howtoplay_button_act.png")
+    howtoplay_button = pygame.image.load("E:/PyGame/Game/images/UIs/howtoplay_button.png")
+    howtoplay_button_act = pygame.image.load("E:/PyGame/Game/images/UIs/howtoplay_button_act.png")
 
     while True:
         for event in pygame.event.get():
@@ -46,8 +46,8 @@ def start_game():
 def call_explain_game():
     explain_game(screen, (255, 192, 203), BLACK)
     #버튼 이미지 불러오기
-    howtoplay_button = pygame.image.load("images/UIs/start_button.png")
-    howtoplay_button_act = pygame.image.load("images/UIs/start_button_act.png")
+    howtoplay_button = pygame.image.load("E:/PyGame/Game/images/UIs/start_button.png")
+    howtoplay_button_act = pygame.image.load("E:/PyGame/Game/images/UIs/start_button_act.png")
     
     while True:
         for event in pygame.event.get():
@@ -82,7 +82,7 @@ def stop_move():
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("images/UIs/collision_box.png").convert_alpha()
+        self.image = pygame.image.load("E:/PyGame/Game/images/UIs/collision_box.png").convert_alpha()
         self.image.set_alpha(0)
         self.rect = self.image.get_rect(topleft = (365, 285))
         self.mask = pygame.mask.from_surface(self.image)
@@ -90,23 +90,23 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         global player_posX, player_posY, is_up, is_down, is_right, is_left, walkCount
     #아래로 걷는 프레임!
-        down_walk = [pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_1.png"), 
-                    pygame.image.load("images/player/Player_Down_1.png"), pygame.image.load("images/player/Player_Down_2.png"), 
-                    pygame.image.load("images/player/Player_Down_2.png"), pygame.image.load("images/player/Player_Down_2.png")]
+        down_walk = [pygame.image.load("E:/PyGame/Game/images/player/Player_Down_1.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Down_1.png"), 
+                    pygame.image.load("E:/PyGame/Game/images/player/Player_Down_1.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Down_2.png"), 
+                    pygame.image.load("E:/PyGame/Game/images/player/Player_Down_2.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Down_2.png")]
     #위로 걷는 프레임!
-        up_walk = [pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_1.png"), 
-                    pygame.image.load("images/player/Player_Up_1.png"), pygame.image.load("images/player/Player_Up_2.png"),
-                    pygame.image.load("images/player/Player_Up_2.png"), pygame.image.load("images/player/Player_Up_2.png")]
+        up_walk = [pygame.image.load("E:/PyGame/Game/images/player/Player_Up_1.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Up_1.png"), 
+                    pygame.image.load("E:/PyGame/Game/images/player/Player_Up_1.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Up_2.png"),
+                    pygame.image.load("E:/PyGame/Game/images/player/Player_Up_2.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Up_2.png")]
     #오른쪽으로 걷는 프레임!
-        right_walk = [pygame.image.load("images/player/Player_Right_1.png"), pygame.image.load("images/player/Player_Right_1.png"), 
-                        pygame.image.load("images/player/Player_Right_2.png"), pygame.image.load("images/player/Player_Right_3.png"),
-                    pygame.image.load("images/player/Player_Right_3.png"), pygame.image.load("images/player/Player_Right_2.png")]
+        right_walk = [pygame.image.load("E:/PyGame/Game/images/player/Player_Right_1.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Right_1.png"), 
+                        pygame.image.load("E:/PyGame/Game/images/player/Player_Right_2.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Right_3.png"),
+                    pygame.image.load("E:/PyGame/Game/images/player/Player_Right_3.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Right_2.png")]
     #왼쪽으로 걷는 프레임!
-        left_walk = [pygame.image.load("images/player/Player_Left_1.png"), pygame.image.load("images/player/Player_Left_1.png"), 
-                        pygame.image.load("images/player/Player_Left_2.png"), pygame.image.load("images/player/Player_Left_3.png"),
-                    pygame.image.load("images/player/Player_Left_3.png"), pygame.image.load("images/player/Player_Left_2.png")]
+        left_walk = [pygame.image.load("E:/PyGame/Game/images/player/Player_Left_1.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Left_1.png"), 
+                        pygame.image.load("E:/PyGame/Game/images/player/Player_Left_2.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Left_3.png"),
+                    pygame.image.load("E:/PyGame/Game/images/player/Player_Left_3.png"), pygame.image.load("E:/PyGame/Game/images/player/Player_Left_2.png")]
     #가만히 있는 프레임!
-        idle = pygame.image.load("images/player/Player_Idle_1.png")
+        idle = pygame.image.load("E:/PyGame/Game/images/player/Player_Idle_1.png")
     #걷기횟수가 5초과면 0으로!
         if walkCount > 5:
             walkCount = 0
@@ -164,16 +164,16 @@ def main_game():
     player_posY = 320
 
     #햄스터
-    hamzzizzi_incomplete = pygame.image.load("images/characters/hamster_zzizzi.png")
-    hamzzizzi_complete = pygame.image.load("images/characters/hamster_zzizzi_success.png")
+    hamzzizzi_incomplete = pygame.image.load("E:/PyGame/Game/images/characters/hamster_zzizzi.png")
+    hamzzizzi_complete = pygame.image.load("E:/PyGame/Game/images/characters/hamster_zzizzi_success.png")
     #팽귄
-    pengiun_incomplete = pygame.image.load("images/characters/penguin_cry.png")
-    pengiun_complete = pygame.image.load("images/characters/penguin_smile.png")
+    pengiun_incomplete = pygame.image.load("E:/PyGame/Game/images/characters/penguin_cry.png")
+    pengiun_complete = pygame.image.load("E:/PyGame/Game/images/characters/penguin_smile.png")
     #아이템
-    sunflower_seed = pygame.image.load("images/quests/sunflower_seeds.png")
-    duck_doll = pygame.image.load("images/quests/duck_doll.png")
+    sunflower_seed = pygame.image.load("E:/PyGame/Game/images/quests/sunflower_seeds.png")
+    duck_doll = pygame.image.load("E:/PyGame/Game/images/quests/duck_doll.png")
     #장애물
-    pond = pygame.image.load("images/backgrounds/pond.png")
+    pond = pygame.image.load("E:/PyGame/Game/images/backgrounds/pond.png")
 
 
     player = pygame.sprite.GroupSingle(Player())
