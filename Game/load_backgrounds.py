@@ -2,7 +2,7 @@ import pygame
 
 def background_1(input_screen):
 
-    ground = pygame.image.load("E:/PyGame/Game/images/backgrounds/ground_1.png")
+    ground = pygame.image.load("Game/images/backgrounds/ground_1.png")
 
     input_screen.blit(ground, (0, 0))
 

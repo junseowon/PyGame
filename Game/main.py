@@ -29,8 +29,8 @@ fps = pygame.time.Clock()
 def start_game():
     menu(screen, BLACK)
     #버튼 이미지 불러오기
-    howtoplay_button = pygame.image.load("E:/PyGame/Game/images/UIs/howtoplay_button.png")
-    howtoplay_button_act = pygame.image.load("E:/PyGame/Game/images/UIs/howtoplay_button_act.png")
+    howtoplay_button = pygame.image.load("Game/images/UIs/howtoplay_button.png")
+    howtoplay_button_act = pygame.image.load("Game/images/UIs/howtoplay_button_act.png")
 
     while True:
         for event in pygame.event.get():
