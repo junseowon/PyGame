@@ -1,12 +1,9 @@
-from re import T
 import pygame
 from load_fonts import *
 from button_UI import *
 from load_sounds import *
 from game import *
-from player import *
 from status_window import *
-from player import *
 from load_backgrounds import *
 from collision_detection import *
 from load_building import *
@@ -32,8 +29,8 @@ fps = pygame.time.Clock()
 def start_game():
     menu(screen, BLACK)
     #버튼 이미지 불러오기
-    howtoplay_button = pygame.image.load("images/UIs/howtoplay_button.png")
-    howtoplay_button_act = pygame.image.load("images/UIs/howtoplay_button_act.png")
+    howtoplay_button = pygame.image.load("E:/PyGame/Game/images/UIs/howtoplay_button.png")
+    howtoplay_button_act = pygame.image.load("E:/PyGame/Game/images/UIs/howtoplay_button_act.png")
 
     while True:
         for event in pygame.event.get():

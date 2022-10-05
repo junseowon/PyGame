@@ -1,5 +1,6 @@
 import pygame
 from load_fonts import *
+from button_UI import *
 #hamzzizzi 대화 상태창
 def hamzzizzi_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")
@@ -100,6 +101,7 @@ def pengiun_dialog(input_screen, font_color, input_line):
         pixel_font(input_screen, "팽돌이를 도와 팽돌이의 장난감을 찾아주세요.", font_color, 200, 550, 30)
 
 def pengiun_dialog_clear(input_screen, font_color, input_line):
+
     dialog = pygame.image.load("images/UIs/Dialog.png")
     input_screen.blit(dialog, (0, 0))
 
@@ -117,9 +119,22 @@ def pengiun_dialog_clear(input_screen, font_color, input_line):
         pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "뭐 말 하고 싶은거 있으신가요....?", font_color, 200, 550, 30)
     elif input_line == 5:
-        pixel_font(input_screen, "나", font_color, 295, 490, 30)
-        pixel_font(input_screen, "이거라도 괜찮니...?", font_color, 200, 550, 30)
-    elif input_line == 6:
+        pixel_font(input_screen, "???", font_color, 295, 490, 30)
+        pixel_font(input_screen, "주운 인형을 줄까요?", font_color, 200, 550, 30)
+
+    ok_button = pygame.image.load("images/UIs/ok_select_button.png")
+    ok_button_act = pygame.image.load("images/UIs/ok_select_button_act.png")
+    Button(input_screen, ok_button, 512, 550, 128, 128, ok_button_act, 512, 550, pengiun_dialog_clear_choice1(input_screen, font_color, input_line))
+
+    cancel_button = pygame.image.load("images/UIs/cancel_select_button.png")
+    cancel_button_act = pygame.image.load("images/UIs/cancel_select_button_act.png")
+    Button(input_screen, cancel_button, 712, 550, 128, 128, cancel_button_act, 712, 550, pengiun_dialog_clear_choice2(input_screen, font_color, input_line))
+
+def pengiun_dialog_clear_choice1(input_screen, font_color, input_line):
+    dialog = pygame.image.load("images/UIs/Dialog.png")
+    input_screen.blit(dialog, (0, 0))
+
+    if input_line == 6:
         pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "하지만 이건 제게 아닌걸요...", font_color, 200, 550, 30)
     elif input_line == 7:
@@ -144,6 +159,33 @@ def pengiun_dialog_clear(input_screen, font_color, input_line):
     elif input_line == 13:
         pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
         pixel_font(input_screen, "아저씨 감사합니다~!!", font_color, 200, 550, 30)
+
+def pengiun_dialog_clear_choice2(input_screen, font_color, input_line):
+    if input_line == 6:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
+        pixel_font(input_screen, "아쉽네요....ㅠ", font_color, 200, 550, 30)
+    elif input_line == 7:
+        pixel_font(input_screen, "나", font_color, 295, 490, 30)
+        pixel_font(input_screen, "미안하구나...", font_color, 200, 550, 30)
+    elif input_line == 8:
+        pixel_font(input_screen, "나", font_color, 295, 490, 30)
+        pixel_font(input_screen, "나도 노력은 해봤어...", font_color, 200, 550, 30)
+    elif input_line == 9:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
+        pixel_font(input_screen, "도와주시려고 하셔서 감사합니다....ㅠㅠ", font_color, 200, 550, 30)
+    elif input_line == 10:
+        pixel_font(input_screen, "나", font_color, 295, 490, 30)
+        pixel_font(input_screen, "...", font_color, 200, 550, 30)
+    elif input_line == 11:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
+        pixel_font(input_screen, "그냥 집에 돌아가면서 찾아볼게요...ㅠㅠㅠ", font_color, 200, 550, 30)
+    elif input_line == 12:
+        pixel_font(input_screen, "???", font_color, 295, 490, 30)
+        pixel_font(input_screen, "당신은 슬픈 모습으로 가는 팽돌이의 모습을 보며 약간의", font_color, 200, 550, 30)
+        pixel_font(input_screen, "미안함을 느꼈습니다...", font_color, 200, 580, 30)
+    elif input_line == 13:
+        pixel_font(input_screen, "팽돌이", font_color, 295, 490, 30)
+        pixel_font(input_screen, "저 먼저 가볼게요...ㅠㅠㅠ", font_color, 200, 550, 30)
 
 def duck_doll_dialog(input_screen, font_color, input_line):
     dialog = pygame.image.load("images/UIs/Dialog.png")

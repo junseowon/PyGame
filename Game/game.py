@@ -2,7 +2,7 @@ from load_sounds import *
 from load_fonts import *
 
 def menu(input_screen, font_color):
-    background = pygame.image.load("images/backgrounds/Robby.png")
+    background = pygame.image.load("E:/PyGame/Game/images/backgrounds/Robby.png")
     input_screen.blit(background, (0, 0))
     handwriting_font(input_screen, "휴식이 없는 나에게", font_color, 0, 0, 80)
     handwriting_font(input_screen, "진정한 휴식이 뭔지 알려주는", font_color, 0, 80, 80)
