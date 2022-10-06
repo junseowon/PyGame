@@ -6,7 +6,6 @@ from game import *
 from status_window import *
 from load_backgrounds import *
 from collision_detection import *
-from load_building import *
 
 pygame.init()
 
@@ -152,9 +151,13 @@ def main_game():
     #동물 퀘스트 그리기
     animal_quest_draw = False
 
+    #동물 그리기
+    animal_draw = False
+
     #동물 클리어 상태
     hamzzizzi_clear = False
     pengiun_clear = False
+    bear_grandfa_clear = False
 
     #배경 상태
     background = 1
@@ -169,19 +172,22 @@ def main_game():
     #팽귄
     pengiun_incomplete = pygame.image.load("E:/PyGame/Game/images/characters/penguin_cry.png")
     pengiun_complete = pygame.image.load("E:/PyGame/Game/images/characters/penguin_smile.png")
+    #곰
+    bear_grandfa_incomplete = pygame.image.load("E:/PyGame/Game/images/characters/bear_grandfa.png")
+    bear_grandfa_complete = pygame.image.load("E:/PyGame/Game/images/characters/bear_grandfa.png")
     #아이템
     sunflower_seed = pygame.image.load("E:/PyGame/Game/images/quests/sunflower_seeds.png")
     duck_doll = pygame.image.load("E:/PyGame/Game/images/quests/duck_doll.png")
+    box = pygame.image.load("E:/PyGame/Game/images/quests/box.png")
     #장애물
     pond = pygame.image.load("E:/PyGame/Game/images/backgrounds/pond.png")
+    house = pygame.image.load("E:/PyGame/Game/images/backgrounds/house_1.png")
 
 
     player = pygame.sprite.GroupSingle(Player())
 
     animal = pygame.sprite.GroupSingle(Animal(hamzzizzi_incomplete, 865, 85))
     animal_quest = pygame.sprite.GroupSingle(Quest(sunflower_seed, 1250, 50))
-
-    obstacle = pygame.sprite.GroupSingle(Obstacle(pond, 150, 150))
 
     while True:
 
@@ -230,29 +236,44 @@ def main_game():
                     stop_move()
 
         if is_down == True:
-            player_posY += 10
+            player_posY += 20
         elif is_up == True:
-            player_posY -= 10            
+            player_posY -= 20            
         elif is_right == True:
-            player_posX += 10            
+            player_posX += 20            
         elif is_left == True:
-            player_posX -= 10            
+            player_posX -= 20            
         else:
             walkCount = 0
 
-        if player_posX < -90:
-            player_posX = 1270
-            background = 1
-        
-        if player_posX > 1280:
+        if player_posX > 1280 and background == 1:
             player_posX = -75
             background = 2
         
-        if player_posY < -90:
-            player_posY = 760
+        if player_posX > 1280 and background == 2:
+            player_posX = -75
             background = 3
+
+        if player_posX < -90 and background == 2:
+            player_posX = 1270
+            background = 1
+
+        if player_posX < -90 and background == 3:
+            player_posX = 1270
+            background = 2
+
+        if player_posY < -50 and background == 3:
+            player_posY = 760
+            background = 4
+
+        if player_posY > 770 and background == 4:
+            player_posY = -50
+            background = 3
+
         #배경 1
         if background == 1:
+            obstacle = pygame.sprite.GroupSingle(Obstacle(pond, 150, 150))
+
             background_1(screen)
             obstacle.draw(screen)
         
@@ -301,7 +322,7 @@ def main_game():
                             animal = pygame.sprite.GroupSingle(Animal(pengiun_incomplete, 350, 150))
                             animal_quest_draw = True
                             
-
+                #햄스터 해바라기 씨
                 if pygame.sprite.spritecollide(player.sprite, animal_quest, False, pygame.sprite.collide_mask):
                     animal_quest_collision = True
                     stop_move()
@@ -341,7 +362,7 @@ def main_game():
                                 is_read = False
                     elif pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and animal_quest_clear == True:
                         stop_move()
-                        pengiun_dialog_clear(screen, BLACK,line)
+                        pengiun_dialog_clear(screen, BLACK, line)
 
                         if is_read == True or line == 0:
                             line += 1
@@ -359,17 +380,19 @@ def main_game():
                             
                             if pengiun_clear == True:
                                 animal.remove(animal)
-                                #animal = pygame.sprite.GroupSingle(Animal(pengiun_incomplete, 350, 150))                                
+                                animal_quest_draw = True
+                                animal_draw = True
+                                                                
 
             #장애물 처리
             if pygame.sprite.spritecollide(player.sprite, obstacle, False, pygame.sprite.collide_mask):
                 stop_move()
 
-                obstacle_dialog(screen, BLACK, line)
+                pond_dialog(screen, BLACK, line)
 
                 if is_read == True or line == 0:
                     line += 1
-                    obstacle_dialog(screen, BLACK, line)
+                    pond_dialog(screen, BLACK, line)
                     is_read = False
 
                     if line > 1:
@@ -382,14 +405,22 @@ def main_game():
                 is_read = False
         #배경 2
         elif background == 2:
+            obstacle.remove(obstacle)
+            obstacle = pygame.sprite.GroupSingle(Obstacle(house, 640, 100))
+
             background_2(screen)
+            obstacle.draw(screen)
 
             player.update()
+
+            if player_posY > 565 or player_posY < 5:
+                stop_move()
+            
             if hamzzizzi_clear == True:
                 if pengiun_clear == False:
                     animal_quest.draw(screen)
                     if animal_quest_draw == True:
-                        animal_quest = pygame.sprite.GroupSingle(Quest(duck_doll, 500, 200))                    
+                        animal_quest = pygame.sprite.GroupSingle(Quest(duck_doll, 640, 300))                    
 
                     if pygame.sprite.spritecollide(player.sprite, animal_quest, False, pygame.sprite.collide_mask):
                         animal_quest_collision = True
@@ -411,6 +442,45 @@ def main_game():
                             animal_quest_collision = False
                             animal_quest_draw = False
                             animal_quest.remove(animal_quest)
+
+            if pengiun_clear == True and animal_quest_clear == True:                
+                animal = pygame.sprite.GroupSingle(Animal(bear_grandfa_incomplete, 640, 300))
+                animal.draw(screen)
+
+                if bear_grandfa_clear == False:
+                    if pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and animal_quest_clear == True:
+                            stop_move()
+                            bear_grandfa_dialog_clear(screen, BLACK,line)
+
+                            if is_read == True or line == 0:
+                                line += 1
+                                bear_grandfa_dialog_clear(screen, BLACK, line)
+                                is_read = False
+
+                                if line > 13:
+                                    line = 1
+                                    is_read = False
+                                    bear_grandfa_clear = True
+                                    animal_quest_clear = False
+                                
+                                if bear_grandfa_clear == True:
+                                    animal.remove(animal)
+                                    #animal = pygame.sprite.GroupSingle(Animal(pengiun_incomplete, 350, 150))
+                                    #animal_quest_draw = True
+
+            if pygame.sprite.spritecollide(player.sprite, obstacle, False, pygame.sprite.collide_mask):
+                stop_move()
+
+                house_dialog(screen, BLACK, line)
+
+                if is_read == True or line == 0:
+                    line += 1
+                    house_dialog(screen, BLACK, line)
+                    is_read = False
+
+                    if line > 1:
+                        line = 1
+                        is_read = False
             
             if not pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and not pygame.sprite.spritecollide(player.sprite, animal_quest, False, pygame.sprite.collide_mask):
                 line = 0
@@ -419,7 +489,69 @@ def main_game():
         #배경 3
         elif background == 3:
             background_3(screen)
+
             player.update()
+
+            if player_posX > 1150 or player_posY > 565:
+                stop_move()
+
+            if pengiun_clear == True:
+                if bear_grandfa_clear == False:
+                    animal.draw(screen)
+
+                    if animal_draw == True:
+                        animal = pygame.sprite.GroupSingle(Animal(bear_grandfa_incomplete, 800, 400))
+
+                    if pygame.sprite.spritecollide(player.sprite, animal, False, pygame.sprite.collide_mask) and animal_quest_clear == False:
+                        stop_move()
+                        bear_grandfa_dialog(screen, BLACK, line)            
+
+                        if is_read == True or line == 0:
+                            line += 1
+                            bear_grandfa_dialog(screen, BLACK, line)
+                            is_read = False
+
+                            if line > 5:             
+                                line = 1
+                                is_read = False
+                                animal_draw = False
+                                animal.remove(animal)                    
+
+            if pengiun_clear == True:
+                if bear_grandfa_clear == False:
+                    animal_quest.draw(screen)
+                    if animal_quest_draw == True:
+                        animal_quest = pygame.sprite.GroupSingle(Quest(box, 900, 400))
+
+                    if pygame.sprite.spritecollide(player.sprite, animal_quest, False, pygame.sprite.collide_mask):
+                        animal_quest_collision = True
+                        stop_move()
+                        box_dialog(screen, BLACK, line)
+
+                        if is_read == True or line == 0:
+                            line += 1
+                            box_dialog(screen, BLACK, line)
+                            is_read = False
+
+                            if line > 1:
+                                line = 1
+                                is_read = False
+                                
+                        if animal_quest_clear == True:
+                            line = 1                
+                            is_read = False
+                            animal_quest_collision = False
+                            animal_quest_draw = False
+                            animal_quest.remove(animal_quest)                                  
+        
+        #배경 4
+        elif background == 4:
+            background_4(screen)
+
+            player.update()
+
+            if player_posX > 1150 or player_posX < -25 or player_posY < 5:
+                stop_move()
     
         pygame.display.update()
 
